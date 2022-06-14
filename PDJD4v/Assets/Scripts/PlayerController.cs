@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     private void OnActionTiggered(InputAction.CallbackContext obj)
     {
         //comecando o nome do action que este chegado com o nome do action de moviment
-        if (obj.action.name.CompareTo(_gameControle.Gamepad.Newaction.name) == 0)
+        if (obj.action.name.CompareTo(_gameControle.Gamepad.Moviment.name) == 0)
         {
             
             //atribuir ao moveinput o valor proveniente ao input do jogador com um vector2
@@ -53,12 +53,17 @@ public class PlayerController : MonoBehaviour
 
     private void move()
     {
-        // calcula o movimento no eixo do camera para movimento frente/tras
+        //calcula o movimento no eixo do camera para movimento frente/tras
         Vector3 moveVertical = _mainCamera.transform.forward * moverInput.y;
-        // calcula o movimento no eixo da camera para movimento esquerdo/direita
+        //calcula o movimento no eixo da camera para movimento esquerdo/direita
         Vector3 moveHorizontal = _mainCamera.transform.right * moverInput.x;
         
         //Adiciona a forca no objeto pelo rigidBody, com intensidade dada por moveSpeed
         _rigidbody.AddForce((moveVertical + moveHorizontal) * moveSpeed*Time.fixedDeltaTime);
+    }
+
+    private void FixedUpdate()
+    {
+        move();
     }
 }

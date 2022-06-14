@@ -19,25 +19,124 @@ public class @GameControle : IInputActionCollection, IDisposable
             ""id"": ""bb9e3c67-8701-423d-a698-5e2a599b58d2"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""cd5c4757-f480-40b0-a08d-64c26305febc"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""Moviment"",
+                    ""type"": ""Value"",
+                    ""id"": ""568bdf19-1aa6-4a39-8560-fa3852bdc5ce"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""731c9f2c-c238-48cd-a567-2fb5d5931748"",
-                    ""path"": """",
+                    ""name"": ""Setas"",
+                    ""id"": ""d612f618-5613-4f45-8c73-529edbaef084"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
+                    ""action"": ""Moviment"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""0abb8cd3-3e84-4f49-8113-4d0b55d454ff"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""keyboard"",
+                    ""action"": ""Moviment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""79fb9b8a-420e-40fc-ab48-9009bcc1b839"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""keyboard"",
+                    ""action"": ""Moviment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4c92b5ba-61c0-410d-965f-55b94d5c9fef"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""keyboard"",
+                    ""action"": ""Moviment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""b974a300-3427-4d89-bce5-92d9b27f97a6"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""keyboard"",
+                    ""action"": ""Moviment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""9817dc91-8ffe-4718-991f-39972dde7775"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Moviment"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""c2985c49-294c-4302-bbd6-ea79c4dcdbf7"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""keyboard"",
+                    ""action"": ""Moviment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""80deff01-90f4-4211-99c1-df1ec3be53d5"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""keyboard"",
+                    ""action"": ""Moviment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4a85eda8-bc4e-4cf9-8e70-acba865edf15"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""keyboard"",
+                    ""action"": ""Moviment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""e5f8836b-9b44-444a-b949-c07d099214a2"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""keyboard"",
+                    ""action"": ""Moviment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -200,7 +299,7 @@ public class @GameControle : IInputActionCollection, IDisposable
 }");
         // Gamepad
         m_Gamepad = asset.FindActionMap("Gamepad", throwIfNotFound: true);
-        m_Gamepad_Newaction = m_Gamepad.FindAction("New action", throwIfNotFound: true);
+        m_Gamepad_Moviment = m_Gamepad.FindAction("Moviment", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Moviment = m_Menu.FindAction("Moviment", throwIfNotFound: true);
@@ -253,12 +352,12 @@ public class @GameControle : IInputActionCollection, IDisposable
     // Gamepad
     private readonly InputActionMap m_Gamepad;
     private IGamepadActions m_GamepadActionsCallbackInterface;
-    private readonly InputAction m_Gamepad_Newaction;
+    private readonly InputAction m_Gamepad_Moviment;
     public struct GamepadActions
     {
         private @GameControle m_Wrapper;
         public GamepadActions(@GameControle wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Gamepad_Newaction;
+        public InputAction @Moviment => m_Wrapper.m_Gamepad_Moviment;
         public InputActionMap Get() { return m_Wrapper.m_Gamepad; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -268,16 +367,16 @@ public class @GameControle : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_GamepadActionsCallbackInterface != null)
             {
-                @Newaction.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnNewaction;
-                @Newaction.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnNewaction;
-                @Newaction.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnNewaction;
+                @Moviment.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnMoviment;
+                @Moviment.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnMoviment;
+                @Moviment.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnMoviment;
             }
             m_Wrapper.m_GamepadActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                @Moviment.started += instance.OnMoviment;
+                @Moviment.performed += instance.OnMoviment;
+                @Moviment.canceled += instance.OnMoviment;
             }
         }
     }
@@ -335,7 +434,7 @@ public class @GameControle : IInputActionCollection, IDisposable
     }
     public interface IGamepadActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnMoviment(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {
