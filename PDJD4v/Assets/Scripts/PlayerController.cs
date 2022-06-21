@@ -53,17 +53,32 @@ public class PlayerController : MonoBehaviour
 
     private void move()
     {
-        //calcula o movimento no eixo do camera para movimento frente/tras
-        Vector3 moveVertical = _mainCamera.transform.forward * moverInput.y;
-        //calcula o movimento no eixo da camera para movimento esquerdo/direita
-        Vector3 moveHorizontal = _mainCamera.transform.right * moverInput.x;
+        Vector3 camFoward = _mainCamera.transform.forward;
+        camFoward.y = 0;
+
+        Vector3 moveVertical = camFoward * _moveInput.y;
+
+        Vector3 camRight = _mainCamera.transform.right;
+
+        camRight.y = 0;
+
+        Vector3 moveHorizontal = camRight * _moveInput.x;
         
-        //Adiciona a forca no objeto pelo rigidBody, com intensidade dada por moveSpeed
-        _rigidbody.AddForce((moveVertical + moveHorizontal) * moveSpeed*Time.fixedDeltaTime);
+        // Adiciona a forca no objeto pelo rigidBody, com intensidade dada por moveSpeed
+        _rigidbody.AddForce((moveVertical + moveHorizontal)* moveSpeed*Time.fixedDeltaTime);
     }
 
-    private void FixedUpdate()
+    private void LimeteVelocity()
     {
+        //pegar a velocidade do player
+        Vector3 velocity = _rigidbody.velocity;
+        
+        // checar se a velocidade esta dentro do limete em cada eixo 
+        // limitando o eixo x usado ifs,Abs e Sin
+        if (Mathf.Abs(velocity.x))
+        {
+            
+        }
         move();
     }
 }
