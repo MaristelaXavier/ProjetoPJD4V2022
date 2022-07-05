@@ -25,6 +25,14 @@ public class @GameControle : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""7ee7341a-1960-499e-a910-90c57daafe0f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -137,6 +145,17 @@ public class @GameControle : IInputActionCollection, IDisposable
                     ""action"": ""Moviment"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c371eb0b-3293-42ea-9460-8911282a3a9f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""keyboard;Gamepad"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -300,6 +319,7 @@ public class @GameControle : IInputActionCollection, IDisposable
         // Gamepad
         m_Gamepad = asset.FindActionMap("Gamepad", throwIfNotFound: true);
         m_Gamepad_Moviment = m_Gamepad.FindAction("Moviment", throwIfNotFound: true);
+        m_Gamepad_Jump = m_Gamepad.FindAction("Jump", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Moviment = m_Menu.FindAction("Moviment", throwIfNotFound: true);
@@ -353,11 +373,13 @@ public class @GameControle : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Gamepad;
     private IGamepadActions m_GamepadActionsCallbackInterface;
     private readonly InputAction m_Gamepad_Moviment;
+    private readonly InputAction m_Gamepad_Jump;
     public struct GamepadActions
     {
         private @GameControle m_Wrapper;
         public GamepadActions(@GameControle wrapper) { m_Wrapper = wrapper; }
         public InputAction @Moviment => m_Wrapper.m_Gamepad_Moviment;
+        public InputAction @Jump => m_Wrapper.m_Gamepad_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Gamepad; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -370,6 +392,9 @@ public class @GameControle : IInputActionCollection, IDisposable
                 @Moviment.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnMoviment;
                 @Moviment.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnMoviment;
                 @Moviment.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnMoviment;
+                @Jump.started -= m_Wrapper.m_GamepadActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_GamepadActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_GamepadActionsCallbackInterface.OnJump;
             }
             m_Wrapper.m_GamepadActionsCallbackInterface = instance;
             if (instance != null)
@@ -377,6 +402,9 @@ public class @GameControle : IInputActionCollection, IDisposable
                 @Moviment.started += instance.OnMoviment;
                 @Moviment.performed += instance.OnMoviment;
                 @Moviment.canceled += instance.OnMoviment;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
             }
         }
     }
@@ -435,6 +463,7 @@ public class @GameControle : IInputActionCollection, IDisposable
     public interface IGamepadActions
     {
         void OnMoviment(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {
